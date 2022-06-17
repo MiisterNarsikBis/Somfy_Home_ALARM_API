@@ -1,2 +1,7 @@
 private
 /private
+vendor/
+/vendor
+token.log
+private/config.ini
+/private/config.ini
