@@ -37,6 +37,20 @@ function getTranslateDay($day) {
 
 }
 
+function translateSecurityLevel($security_level) {
+
+    if($security_level == "partial") {
+        return 'Mode nuit';
+    }elseif($security_level == "armed") {
+        return 'Alarme complète';
+    }elseif($security_level == "disarmed") {
+        return 'Désactiver l\'alarme';
+    }
+
+    return $security_level;
+
+}
+
 function getColorBatterie($int) {
     if($int >= 50) {
         return '#1cc88a';

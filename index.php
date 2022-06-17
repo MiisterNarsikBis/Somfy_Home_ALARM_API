@@ -183,6 +183,7 @@ if ($log_level == 1) {
                                             <div class="col-sm-5">
                                                 <h4 class="h5"> Agenda n° <?= $i ?></h4>
                                                 <span class="badge bg-success" style="color: white"><?= $calendar['time'] ?></span>
+                                                <span class="badge bg-gradient-dark" style="color: white"><?= translateSecurityLevel($calendar['action']) ?></span>
                                             </div>
                                             <div class="col-sm-4 py-2">
                                                 <?php foreach ($calendar['jours'] as $jour) : ?>
@@ -191,9 +192,9 @@ if ($log_level == 1) {
                                             </div>
                                             <div class="col-sm-3 text-lg-end">
                                                 <?php if($calendar['actif'] == true) : ?>
-                                                    <a href="?action=scenario&id=<?= $calendar['scenario_id'] ?>&enabled=false" class="btn btn-danger stretched-link">Désactiver</a>
+                                                    <a href="?action=scenario&id=<?= $calendar['scenario_id'] ?>&enabled=false" class="btn btn-danger">Désactiver</a>
                                                 <?php else: ?>
-                                                    <a href="?action=scenario&id=<?= $calendar['scenario_id'] ?>&enabled=true" class="btn btn-success stretched-link">Activer</a>
+                                                    <a href="?action=scenario&id=<?= $calendar['scenario_id'] ?>&enabled=true" class="btn btn-success">Activer</a>
                                                 <?php endif; ?>
                                             </div>
                                         </div>
