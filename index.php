@@ -199,7 +199,7 @@ if ($log_level == 1) {
                             <?php foreach ($controls as $control) : ?>
                                 <div class="col-md-4 col-xl-3">
                                     <div class="card <?= $control['color'] ?> order-card">
-                                        <a href="<?= HTTP.'control.php?action='.$control['action'] ?>" style="color: white; text-decoration: none">
+                                        <a href="<?= HTTP.'/control.php?action='.$control['action'] ?>" style="color: white; text-decoration: none">
                                             <div class="card-block">
                                                 <h6 class="p-2"><?= $control['titre'] ?></h6>
                                                 <?php /*<p class="m-b-0">Completed Orders<span class="f-right">351</span></p> */?>
