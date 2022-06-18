@@ -107,9 +107,14 @@ if ($log_level == 1) {
             background: linear-gradient(45deg,#FF5370,#ff869a);
         }
 
+        .bg-c-grey {
+            background: linear-gradient(45deg,#6e707e,#2e303c);
+        }
+
     </style>
     <!-- Custom styles for this template-->
     <link href="assets/css/sb-admin-2.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css" />
 
 </head>
 
@@ -127,11 +132,6 @@ if ($log_level == 1) {
             <!-- Topbar -->
             <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
 
-                <!-- Sidebar Toggle (Topbar) -->
-                <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
-                    <i class="fa fa-bars"></i>
-                </button>
-
                 <!-- Topbar Search -->
 
                     <div class="input-group ml-md-3 col-3">
@@ -140,6 +140,10 @@ if ($log_level == 1) {
                         </div>
                         <div class="sidebar-brand-text mx-3">Somfy &nbsp;<sup>API</sup></div>
                     </div>
+
+                <div class="infoAlarmNow">
+                    <?= translateSecurityLevelDisplay(getInfoAlarm()['alarmeActuel']) ?>
+                </div>
 
             </nav>
             <!-- End of Topbar -->
@@ -153,46 +157,58 @@ if ($log_level == 1) {
 
                 <div class="row">
                     <div class="container">
-                        <div class="row">
-                            <div class="col-md-4 col-xl-3">
-                                <div class="card bg-c-blue order-card">
-                                    <div class="card-block">
-                                        <h6 class="m-b-20">Orders Received</h6>
-                                        <h2 class="text-right"><i class="fa fa-cart-plus f-left"></i><span>486</span></h2>
-                                        <p class="m-b-0">Completed Orders<span class="f-right">351</span></p>
-                                    </div>
-                                </div>
-                            </div>
+                        <div class="row" style="justify-content: space-around;">
 
-                            <div class="col-md-4 col-xl-3">
-                                <div class="card bg-c-green order-card">
-                                    <div class="card-block">
-                                        <h6 class="m-b-20">Orders Received</h6>
-                                        <h2 class="text-right"><i class="fa fa-rocket f-left"></i><span>486</span></h2>
-                                        <p class="m-b-0">Completed Orders<span class="f-right">351</span></p>
-                                    </div>
-                                </div>
-                            </div>
+                            <?php
 
-                            <div class="col-md-4 col-xl-3">
-                                <div class="card bg-c-yellow order-card">
-                                    <div class="card-block">
-                                        <h6 class="m-b-20">Orders Received</h6>
-                                        <h2 class="text-right"><i class="fa fa-refresh f-left"></i><span>486</span></h2>
-                                        <p class="m-b-0">Completed Orders<span class="f-right">351</span></p>
-                                    </div>
-                                </div>
-                            </div>
+                                $controls = array(
+                                    array(
+                                        'action' => 'armed',
+                                        'color' => 'bg-c-green',
+                                        'titre' => 'Activer l\'alarme',
+                                    ),
+                                    array(
+                                        'action' => 'partial',
+                                        'color' => 'bg-c-yellow',
+                                        'titre' => 'Activer le mode nuit',
+                                    ),
+                                    array(
+                                        'action' => 'disarmed',
+                                        'color' => 'bg-c-pink',
+                                        'titre' => 'Désactiver l\'alarme',
+                                    ),
+                                    array(
+                                        'action' => 'weekend',
+                                        'color' => 'bg-c-blue',
+                                        'titre' => 'Mode week-end',
+                                    ),
+                                    array(
+                                        'action' => 'notif_off',
+                                        'color' => 'bg-c-grey',
+                                        'titre' => 'Désactiver les notifications',
+                                    ),
+                                    array(
+                                        'action' => 'notif_on',
+                                        'color' => 'bg-c-grey',
+                                        'titre' => 'Activer les notifications',
+                                    )
+                                );
 
-                            <div class="col-md-4 col-xl-3">
-                                <div class="card bg-c-pink order-card">
-                                    <div class="card-block">
-                                        <h6 class="m-b-20">Orders Received</h6>
-                                        <h2 class="text-right"><i class="fa fa-credit-card f-left"></i><span>486</span></h2>
-                                        <p class="m-b-0">Completed Orders<span class="f-right">351</span></p>
+                            ?>
+
+                            <?php foreach ($controls as $control) : ?>
+                                <div class="col-md-4 col-xl-3">
+                                    <div class="card <?= $control['color'] ?> order-card">
+                                        <a href="<?= HTTP.'control.php?action='.$control['action'] ?>" style="color: white; text-decoration: none">
+                                            <div class="card-block">
+                                                <h6 class="p-2"><?= $control['titre'] ?></h6>
+                                                <?php /*<p class="m-b-0">Completed Orders<span class="f-right">351</span></p> */?>
+                                            </div>
+                                        </a>
                                     </div>
                                 </div>
-                            </div>
+                            <?php endforeach; ?>
+
                         </div>
                     </div>
                 </div>
@@ -311,6 +327,19 @@ if ($log_level == 1) {
                     </div>
                 </div>
 
+                <div class="row">
+                    <div class="col-md-4"></div>
+
+                    <div class="col-md-4">
+                        <div id="map" style="height: 280px; max-width: 450px"></div>
+                    </div>
+
+                    <div class="col-md-4"></div>
+
+                </div>
+
+                <br>
+
             </div>
             <!-- /.container-fluid -->
 
@@ -334,36 +363,34 @@ if ($log_level == 1) {
 </div>
 <!-- End of Page Wrapper -->
 
-<!-- Scroll to Top Button-->
-<a class="scroll-to-top rounded" href="#page-top">
-    <i class="fas fa-angle-up"></i>
-</a>
-
-<!-- Logout Modal-->
-<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-     aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">×</span>
-                </button>
-            </div>
-            <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-            <div class="modal-footer">
-                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                <a class="btn btn-primary" href="login.html">Logout</a>
-            </div>
-        </div>
-    </div>
-</div>
-
 <!-- Bootstrap core JavaScript-->
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" ></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"></script>
+<script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js"></script>
 
+<script>
+    $(document).ready(function (){
+
+        let lat = "<?= getInfoAlarm()['lat'] ?>";
+        let lng = "<?= getInfoAlarm()['lng'] ?>";
+
+        var map = L.map('map').setView([lat, lng], 13);
+
+        var tiles = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19
+        }).addTo(map);
+
+        var marker = L.marker([lat, lng]).addTo(map);
+
+        let nom = "<?= getInfoAlarm()['nom'] ?>";
+        marker.bindPopup("<h3>" + nom + "</h3>")
+
+
+
+    })
+
+</script>
 
 </body>
 

@@ -51,6 +51,21 @@ function translateSecurityLevel($security_level) {
 
 }
 
+function translateSecurityLevelDisplay($security_level) {
+
+    if($security_level == "partial") {
+        return 'Mode nuit';
+    }elseif($security_level == "armed") {
+        return 'Alarme complète';
+    }elseif($security_level == "disarmed") {
+        return 'Alarme désactivée';
+    }
+
+    return $security_level;
+
+}
+
+
 function getColorBatterie($int) {
     if($int >= 50) {
         return '#1cc88a';
