@@ -1,6 +1,7 @@
 <?php
-require_once('auth.php');
-require('parametres.php');
+
+require_once(__DIR__ . '/include.php');
+
 
 if(!isset($_SESSION['passwordPanel'])) {
         header("Location: ". HTTP ."/password.php?nopass");
