@@ -56,6 +56,31 @@ function getDataCalendar() {
     return $arrayClean;
 }
 
+function getInfoAlarm() {
+
+    global $site_id, $access_token;
+
+    $arrayClean = [];
+
+    if(isset($site_id) && $site_id != "") {
+        $infos = "https://api.myfox.io/v3/site/".$site_id."?access_token=".$access_token;
+        $details_infos = json_decode(file_get_contents($infos));
+
+        $arrayClean = array(
+            'nom' => $details_infos->name,
+            'address1' => $details_infos->address1,
+            'address2' => $details_infos->address2,
+            'codePostal' => $details_infos->zip_code,
+            'ville' => $details_infos->city,
+            'lat' => $details_infos->latitude,
+            'lng' => $details_infos->longitude,
+            'alarmeActuel' => $details_infos->security_level
+        );
+    }
+
+    return $arrayClean;
+}
+
 if(isset($_GET['action']) && $_GET['action'] == "scenario") {
 
     if(isset($_GET['id']) && isset($_GET['enabled'])){

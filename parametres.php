@@ -4,6 +4,7 @@ $log_level = 1;
 $config = parse_ini_file('private/config.ini');
 $username = $config['username'];
 $password = $config['password'];
+$passwordPanel = $config['passwordPanel'];
 $client_id = $config['client_id'];
 $client_secret = $config['client_secret'];
 $access_token = $_SESSION["access_token"] ?? null;

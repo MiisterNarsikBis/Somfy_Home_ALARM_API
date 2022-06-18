@@ -12,6 +12,33 @@ require_once('parametres.php');
 
 define("HTTP", $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST'].'/somfy');
 
+if(isset($_POST['passwordPanel'])) {
+
+
+    if($_POST['passwordPanel'] != $passwordPanel){
+        //Mauvais MDP;
+        header("Location: ". HTTP ."/password.php?mauvais");
+        exit;
+    }else{
+        $_SESSION['passwordPanel'] = $_POST['passwordPanel'];
+        header("Location: ". HTTP);
+        exit;
+    }
+
+}
+
+
+if(!isset($_SESSION['passwordPanel'])) {
+    header("Location: ". HTTP ."/password.php?nopass");
+    exit;
+}else{
+    if(isset($passwordPanel) && $_SESSION['passwordPanel'] != $passwordPanel) {
+        header("Location: ". HTTP ."/password.php?mauvais");
+        exit;
+    }
+}
+
+
 if (isset($log_level) && $log_level == 1) {
     $log = date("F j, Y, g:i a").PHP_EOL;
 }

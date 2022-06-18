@@ -1,6 +1,17 @@
 <?php
 require_once('auth.php');
 require('parametres.php');
+
+if(!isset($_SESSION['passwordPanel'])) {
+        header("Location: ". HTTP ."/password.php?nopass");
+        exit;
+}else{
+        if(isset($passwordPanel) && $_SESSION['passwordPanel'] != $passwordPanel) {
+                header("Location: ". HTTP ."/password.php?mauvais");
+                exit;
+        }
+}
+
 $action = $_GET["action"];
 
 $site_id = $_SESSION['site_id'];
@@ -77,4 +88,7 @@ else{
         $response  = curl_exec($ch);
         curl_close($ch);
 }
+
+header("Location: " . HTTP);
+exit;
 ?>
