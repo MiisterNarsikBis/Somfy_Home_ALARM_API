@@ -5,10 +5,13 @@ include(__DIR__ . '/include.php');
 
 $response = generateCurl("https://api.myfox.io/v3/site/".$site_id."?access_token=".$access_token, null);
 
-if ((strpos($response,"unauthorized") != false) || $_SESSION["site_id"] != "1") {
+if ((strpos($response,"unauthorized") != false) || !isset($_SESSION["site_id"]) || $_SESSION["site_id"] != "1") {
     $response = refresh_token($client_id,$client_secret,$refresh_token);
+
     if ($response == "erreur") {
         $response = new_token($client_id,$client_secret,$password,$username);
+        header("Location: ".HTTP);
+        exit;
     }
 }
 //Save string to log, use FILE_APPEND to append.
