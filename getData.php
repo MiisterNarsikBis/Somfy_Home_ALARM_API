@@ -15,7 +15,12 @@ function getDataMatos() {
             $arrayClean[] = [
                 'nom' => $item->label,
                 'type' => $item->device_definition->label,
+                'typeSomfy' => $item->device_definition->type,
                 'status' => array(
+                    'shutter_state' => $item->status->shutter_state ?? null,
+                    'wifi_level_percent' => $item->status->wifi_level_percent ?? null,
+                    'rlink_quality_percent' => $item->status->rlink_quality_percent ?? null,
+                    'power_state' => $item->status->power_state ?? null,
                     'batterie' => $item->status->battery_level ?? null,
                     'lastUpdate' => generateDate($item->status->last_status_at),
                     'temperature' => $item->status->temperature ?? null

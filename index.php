@@ -42,6 +42,7 @@ if ($log_level == 1) {
         rel="stylesheet">
 
     <style>
+        /* PARTIE INFORMATION */
         .o-progress-circle {
             display: inline-block;
             position: relative;
@@ -85,6 +86,27 @@ if ($log_level == 1) {
             }
         }
 
+        /* PARTIE CONTROLE */
+        .order-card {
+            color: #fff;
+        }
+
+        .bg-c-blue {
+            background: linear-gradient(45deg,#4099ff,#73b4ff);
+        }
+
+        .bg-c-green {
+            background: linear-gradient(45deg,#2ed8b6,#59e0c5);
+        }
+
+        .bg-c-yellow {
+            background: linear-gradient(45deg,#FFB64D,#ffcb80);
+        }
+
+        .bg-c-pink {
+            background: linear-gradient(45deg,#FF5370,#ff869a);
+        }
+
     </style>
     <!-- Custom styles for this template-->
     <link href="assets/css/sb-admin-2.min.css" rel="stylesheet">
@@ -125,9 +147,59 @@ if ($log_level == 1) {
             <!-- Begin Page Content -->
             <div class="container-fluid">
 
+                <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                    <h1 class="h3 mb-0 text-gray-800">Contrôle</h1>
+                </div>
+
+                <div class="row">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-4 col-xl-3">
+                                <div class="card bg-c-blue order-card">
+                                    <div class="card-block">
+                                        <h6 class="m-b-20">Orders Received</h6>
+                                        <h2 class="text-right"><i class="fa fa-cart-plus f-left"></i><span>486</span></h2>
+                                        <p class="m-b-0">Completed Orders<span class="f-right">351</span></p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4 col-xl-3">
+                                <div class="card bg-c-green order-card">
+                                    <div class="card-block">
+                                        <h6 class="m-b-20">Orders Received</h6>
+                                        <h2 class="text-right"><i class="fa fa-rocket f-left"></i><span>486</span></h2>
+                                        <p class="m-b-0">Completed Orders<span class="f-right">351</span></p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4 col-xl-3">
+                                <div class="card bg-c-yellow order-card">
+                                    <div class="card-block">
+                                        <h6 class="m-b-20">Orders Received</h6>
+                                        <h2 class="text-right"><i class="fa fa-refresh f-left"></i><span>486</span></h2>
+                                        <p class="m-b-0">Completed Orders<span class="f-right">351</span></p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4 col-xl-3">
+                                <div class="card bg-c-pink order-card">
+                                    <div class="card-block">
+                                        <h6 class="m-b-20">Orders Received</h6>
+                                        <h2 class="text-right"><i class="fa fa-credit-card f-left"></i><span>486</span></h2>
+                                        <p class="m-b-0">Completed Orders<span class="f-right">351</span></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- Page Heading -->
                 <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                    <h1 class="h3 mb-0 text-gray-800">Batterie</h1>
+                    <h1 class="h3 mb-0 text-gray-800">Information</h1>
                 </div>
 
                 <!-- Content Row -->
@@ -144,6 +216,31 @@ if ($log_level == 1) {
                                         <div class="row no-gutters align-items-center">
                                             <div class="col mr-2">
                                                 <div class="text-xs font-weight-bold text-primary text-uppercase mb-1"><?= $materiel['nom'] ?> (<?= $materiel['type'] ?>)</div>
+
+                                                <?php if($materiel['status']['power_state'] != null) : ?>
+
+                                                    <?php if($materiel['status']['power_state'] == true) : ?>
+                                                            Branché, sous tension <i class="fas fa-circle" style="color: #169b6b"></i><br>
+                                                        <?php else: ?>
+                                                            Débranché, hors tension <i class="fas fa-circle" style="color: #d52a1a"></i><br>
+                                                    <?php endif; ?>
+
+                                                <?php endif; ?>
+
+
+
+                                                <?php if($materiel['status']['shutter_state'] != null) : ?>
+
+                                                    <?php if($materiel['status']['shutter_state'] == true) : ?>
+                                                            Cache baissé <i class="fas fa-eye-slash"></i><br>
+                                                        <?php else: ?>
+                                                            Cache relevé <i class="fas fa-eye"></i><br>
+                                                    <?php endif; ?>
+
+                                                <?php endif; ?>
+
+
+
                                                 <?php if($materiel['status']['batterie'] != null ) : ?>
                                                     <div class="o-progress-circle o-progress-circle--rounded">
                                                         <div class="o-progress-circle__fill">
@@ -159,9 +256,14 @@ if ($log_level == 1) {
                                                 <?php if($materiel['status']['temperature'] != null) : ?>
                                                     <div class="h5 mb-0 font-weight-bold text-gray-800"><?= number_format($materiel['status']['temperature'], '1', ',', ' ') ?> °C</div>
                                                 <?php endif; ?>
-                                            </div>
-                                            <div class="col-auto">
-                                                <i class="fas fa-calendar fa-2x text-gray-300"></i>
+
+                                                <?php if($materiel['status']['wifi_level_percent'] != null) : ?>
+                                                    Signal Wifi <?= $materiel['status']['wifi_level_percent'].'%' ?> <i class="fas fa-wifi"></i><br>
+                                                <?php endif; ?>
+
+                                                <?php if($materiel['status']['rlink_quality_percent'] != null) : ?>
+                                                    Signal vers le link <?= $materiel['status']['rlink_quality_percent'].'%' ?> <i class="fas fa-signal-stream"></i><br>
+                                                <?php endif; ?>
                                             </div>
                                         </div>
                                     </div>
