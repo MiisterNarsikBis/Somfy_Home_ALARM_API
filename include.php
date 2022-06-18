@@ -7,7 +7,9 @@ if (session_status() === PHP_SESSION_NONE) {
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 
-require_once('vendor/autoload.php');
+if(is_dir('vendor/')){
+    require_once('vendor/autoload.php');
+}
 require_once('parametres.php');
 
 define("HTTP", $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST'].'/somfy');
