@@ -1,4 +1,7 @@
 # Somfy_Home_ALARM_API
+
+![Image Screen](https://zupimages.net/up/22/24/36fm.png)
+
 Utilisation des api myfox pour somfy home alarm
 
 1) deplacer le dossier private dans le repertoire parent
@@ -15,12 +18,12 @@ Description des commandes:
 - notif_off: desactivation des notifications sonores de la sirene
 - notif_on: activation des notifications sonores de la sirene
 
-####Un grand merci à @Mystikal57 pour le fork !
+Un grand merci à @Mystikal57 pour le fork !
 En cas de besoin, je suis disponible sur discord MiisterNarsik#7461
 
 Changelog:
 
-####18-06-2022:
+18-06-2022:
 - Je reprends ce projet, j'ai adapté les functions pour les Curl, un peu de tri et des includes
 - Par la suite, la page d'accueil inclura aussi les control.php (pas encore eu le temps de faire)
 - la config.ini aura un nouveau champ "PasswordPanel", ce qui permettra d'avoir un mot de passe pour accéder au panel
