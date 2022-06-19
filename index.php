@@ -284,7 +284,7 @@ if ($log_level == 1) {
                                                 <?php endif; ?>
 
                                                 <?php if($materiel['status']['rlink_quality_percent'] != null) : ?>
-                                                    Signal vers le link <?= $materiel['status']['rlink_quality_percent'].'%' ?> <i class="fas fa-signal-stream"></i><br>
+                                                    Signal vers le link <?= $materiel['status']['rlink_quality_percent'].'%' ?> <i class="fas fa-house-signal"></i><br>
                                                 <?php endif; ?>
                                             </div>
                                         </div>
