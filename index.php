@@ -145,6 +145,12 @@ if ($log_level == 1) {
                     <?= translateSecurityLevelDisplay(getInfoAlarm()['alarmeActuel']) ?>
                 </div>
 
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+                <div class="linkToDisplay">
+                    <a href="state.php?display" target="_blank">Affichage info alarme</a>
+                </div>
+
             </nav>
             <!-- End of Topbar -->
 
