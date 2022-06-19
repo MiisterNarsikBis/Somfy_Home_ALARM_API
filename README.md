@@ -2,6 +2,9 @@
 
 ![Image Screen](https://zupimages.net/up/22/24/36fm.png)
 
+Widget iPhone (page state.php?display&passwordPanel=Motdepasse)
+![Image Screen](https://zupimages.net/up/22/24/bjly.png)
+
 Utilisation des api myfox pour somfy home alarm
 
 1) deplacer le dossier private dans le repertoire parent
