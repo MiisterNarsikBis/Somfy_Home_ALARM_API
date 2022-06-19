@@ -111,6 +111,17 @@ if ($log_level == 1) {
             background: linear-gradient(45deg,#6e707e,#2e303c);
         }
 
+
+        /* Pagination page */
+        .pagination .page {
+            padding: 10px;
+            border-radius: 50%;
+            background-color: lavender;
+            margin-right: 15px;
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: bold;
+        }
     </style>
     <!-- Custom styles for this template-->
     <link href="assets/css/sb-admin-2.min.css" rel="stylesheet">
