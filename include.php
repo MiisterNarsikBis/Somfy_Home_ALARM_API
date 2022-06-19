@@ -29,6 +29,9 @@ if(isset($_POST['passwordPanel'])) {
 
 }
 
+if(isset($_GET['passwordPanel'])) {
+    $_SESSION['passwordPanel'] = $_GET['passwordPanel'];
+}
 
 if(!isset($_SESSION['passwordPanel'])) {
     header("Location: ". HTTP ."/password.php?nopass");
