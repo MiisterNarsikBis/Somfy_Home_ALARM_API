@@ -54,6 +54,40 @@ if (isset($log_level) && $log_level == 1) {
     $log = date("F j, Y, g:i a").PHP_EOL;
 }
 
+function getTranslateMessageKey($messageKey) {
+
+    switch ($messageKey){
+        case 'homeActivity.user.exit':
+            return 'a quitté la maison';
+        case 'site.securityLevel.disarmed.user' :
+            return 'a désactivé l\'alarme';
+        case 'site.securityLevel.partial.calendar':
+        case 'site.securityLevel.partial.user' :
+            return 'a activé le mode nuit';
+        case 'homeActivity.user.entrance' :
+            return 'est arrivé à la maison';
+        case 'site.securityLevel.armed.user' :
+            return 'a activé l\'alarme';
+        default:
+            return $messageKey;
+    }
+
+}
+
+function getColorByMessageKey($messageKey) {
+    $vert = '#1cc88a';
+    $rouge = '#e74a3b';
+
+    $vertMessageKey = ['homeActivity.user.entrance', 'site.securityLevel.armed.user', 'site.securityLevel.partial.calendar', 'site.securityLevel.partial.user'];
+
+    if(in_array($messageKey, $vertMessageKey)){
+        return $vert;
+    }
+
+    return $rouge;
+
+}
+
 function getTranslateDay($day) {
 
     switch ($day){

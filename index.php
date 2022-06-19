@@ -334,13 +334,47 @@ if ($log_level == 1) {
                 </div>
 
                 <div class="row">
-                    <div class="col-md-4"></div>
-
-                    <div class="col-md-4">
-                        <div id="map" style="height: 280px; max-width: 450px"></div>
+                    <div class="col-md-6">
+                        <div id="map" style="height: 280px; max-width: 450px; margin: auto;"></div>
                     </div>
 
-                    <div class="col-md-4"></div>
+
+                    <div class="col-md-6">
+                        <div class="card ccard radius-t-0 h-100">
+                            <div class="position-tl w-102 border-t-3 brc-primary-tp3 ml-n1px mt-n1px"></div>
+                            <!-- the blue line on top -->
+
+                            <div class="card-header pb-3 brc-secondary-l3">
+                                <h5 class="card-title mb-2 mb-md-0 text-dark-m3">
+                                    Historique
+                                </h5>
+                            </div>
+
+                            <div class="card-body pt-2 pb-1">
+
+                                <div id="listId">
+                                    <ul class="list">
+                                        <?php foreach (getHistorique() as $historique) : ?>
+
+                                        <?php if($historique['message_type'] == "home_activity") : ?>
+                                                <li style="color: <?= getColorByMessageKey($historique['message_key']); ?>"><i class="fas fa-door-open"></i> &nbsp;<?= '['.generateDate($historique['occurred_at'])->format('d/m/Y H:i') . '] - ' . $historique['userDsp'] . ' ' . getTranslateMessageKey($historique['message_key']) ?></li>
+                                        <?php elseif($historique['message_type'] == "security_level") : ?>
+                                                <li style="color: <?= getColorByMessageKey($historique['message_key']); ?>"><i class="fas fa-bell"></i> &nbsp;<?= '['.generateDate($historique['occurred_at'])->format('d/m/Y H:i') . '] - ' . $historique['userDsp'] . ' ' . getTranslateMessageKey($historique['message_key']) ?></li>
+                                        <?php elseif($historique['message_type'] == "calendar") : ?>
+                                                <li style="color: <?= getColorByMessageKey($historique['message_key']); ?>"><i class="fas fa-calendar-alt"></i> &nbsp;<?= '['.generateDate($historique['occurred_at'])->format('d/m/Y H:i') . '] - Le calendrier ' . getTranslateMessageKey($historique['message_key']) ?></li>
+                                        <?php else: ?>
+                                        <!-- li basique -->
+                                        <li></li>
+                                        <?php endif; ?>
+
+                                        <?php endforeach; ?>
+                                    </ul>
+                                    <ul class="pagination"></ul>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
 
                 </div>
 
@@ -374,6 +408,7 @@ if ($log_level == 1) {
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" ></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"></script>
 <script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
 
 <script>
     $(document).ready(function (){
@@ -393,8 +428,22 @@ if ($log_level == 1) {
         marker.bindPopup("<h3>" + nom + "</h3>")
 
 
+        $('.pagination').on('click','.page', function (e) {
 
+            e.preventDefault();
+
+        })
+
+        var options = {
+            page: 10,
+            pagination: true
+        };
+
+        var listObj = new List('listId', options);
     })
+
+
+
 
 </script>
 

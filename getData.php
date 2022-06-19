@@ -81,6 +81,47 @@ function getInfoAlarm() {
     return $arrayClean;
 }
 
+function getHistorique() {
+
+    global $site_id, $access_token;
+
+    $arrayClean = [];
+
+    $history = "https://api.myfox.io/v3/site/".$site_id."/history?access_token=".$access_token;
+    $details_history = json_decode(file_get_contents($history));
+
+    /*
+        Message disponible :
+        home_activity -> Entrée / sortie
+        security_level -> Les activations / désactivations manuel
+        device_diagnosis -> info sur les piles,
+        device_config -> Changement de configuration,
+        calendar -> Action du calendrier
+
+
+
+     */
+    $messageTypeAllowed = ['home_activity', 'security_level', 'calendar'];
+
+    foreach ($details_history->items as $item) {
+
+        if(in_array($item->message_type, $messageTypeAllowed)) {
+            //Traitement uniquement des messages choisi audessus ;)
+
+            $arrayClean[] = array(
+                'message_type' => $item->message_type,
+                'message_key' => $item->message_key,
+                'userDsp' => $item->message_vars->userDsp ?? null,
+                'occurred_at' => $item->occurred_at
+            );
+
+        }
+
+    }
+
+    return $arrayClean;
+}
+
 if(isset($_GET['action']) && $_GET['action'] == "scenario") {
 
     if(isset($_GET['id']) && isset($_GET['enabled'])){
