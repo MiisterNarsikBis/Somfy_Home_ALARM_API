@@ -16,7 +16,6 @@ define("HTTP", $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST'].'/somf
 
 if(isset($_POST['passwordPanel'])) {
 
-
     if($_POST['passwordPanel'] != $passwordPanel){
         //Mauvais MDP;
         header("Location: ". HTTP ."/password.php?mauvais");
@@ -29,10 +28,17 @@ if(isset($_POST['passwordPanel'])) {
 
 }
 
+//permet de bypass la session passwordPanel et l'injecter via l'url ;)
 if(isset($_GET['passwordPanel'])) {
-    $_SESSION['passwordPanel'] = $_GET['passwordPanel'];
+    if($passwordPanel != $_GET['passwordPanel']){
+        header("Location: ". HTTP ."/password.php?mauvais");
+        exit;
+    }else{
+        $_SESSION['passwordPanel'] = $_GET['passwordPanel'];
+    }
 }
 
+//Si pas de session PasswordPanel, on envoie sur la page demande de mot de passe (sinon on le met dans la session)
 if(!isset($_SESSION['passwordPanel'])) {
     header("Location: ". HTTP ."/password.php?nopass");
     exit;
