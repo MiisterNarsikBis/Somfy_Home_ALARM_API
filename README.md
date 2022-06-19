@@ -1,6 +1,7 @@
 # Somfy_Home_ALARM_API
 
-![Image Screen](https://zupimages.net/up/22/24/36fm.png)
+![Image Screen](https://zupimages.net/up/22/24/0634.png)
+![Image Screen](https://zupimages.net/up/22/24/2hlp.png)
 
 Widget iPhone (page state.php?display&passwordPanel=Motdepasse)
 ![Image Screen](https://zupimages.net/up/22/24/bjly.png)
