@@ -3,16 +3,6 @@
 require_once(__DIR__ . '/include.php');
 
 
-if(!isset($_SESSION['passwordPanel'])) {
-        header("Location: ". HTTP ."/password.php?nopass");
-        exit;
-}else{
-        if(isset($passwordPanel) && $_SESSION['passwordPanel'] != $passwordPanel) {
-                header("Location: ". HTTP ."/password.php?mauvais");
-                exit;
-        }
-}
-
 $action = $_GET["action"];
 
 $site_id = $_SESSION['site_id'];
