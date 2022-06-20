@@ -35,6 +35,9 @@ if(isset($_GET['passwordPanel'])) {
         exit;
     }else{
         $_SESSION['passwordPanel'] = $_GET['passwordPanel'];
+        //Redirection vers la page, sans le get
+        header("Location: ".$_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST'] . $_SERVER['SCRIPT_NAME']);
+        exit;
     }
 }
 
