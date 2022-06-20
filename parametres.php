@@ -7,6 +7,7 @@ $password = $config['password'];
 $passwordPanel = $config['passwordPanel'];
 $client_id = $config['client_id'];
 $client_secret = $config['client_secret'];
+$path = $config['path'];
 $access_token = $_SESSION["access_token"] ?? null;
 $refresh_token = $_SESSION["refresh_token"] ?? null;
 

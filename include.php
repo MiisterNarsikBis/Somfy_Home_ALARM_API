@@ -12,7 +12,7 @@ if(is_dir('vendor/')){
 }
 require_once('parametres.php');
 
-define("HTTP", $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST'].'/somfy/v2');
+define("HTTP", $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST']. $path);
 
 if(isset($_POST['passwordPanel'])) {
 
