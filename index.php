@@ -7,23 +7,6 @@ if(isset($_GET['passwordPanel'])) {
     exit;
 }
 
-$response = generateCurl("https://api.myfox.io/v3/site/".$site_id."?access_token=".$access_token, null);
-
-if ((strpos($response,"unauthorized") != false) || !isset($_SESSION["site_id"]) || $_SESSION["site_id"] != "1") {
-    $response = refresh_token($client_id,$client_secret,$refresh_token);
-
-    if ($response == "erreur") {
-        $response = new_token($client_id,$client_secret,$password,$username);
-        header("Location: ".HTTP);
-        exit;
-    }
-}
-//Save string to log, use FILE_APPEND to append.
-if ($log_level == 1) {
-    $log .= "-------------------------".PHP_EOL;
-    file_put_contents('./token.log', $log, FILE_APPEND);
-}
-
 ?>
 
 <!DOCTYPE html>

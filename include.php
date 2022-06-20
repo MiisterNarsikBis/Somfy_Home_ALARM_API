@@ -14,6 +14,7 @@ require_once('parametres.php');
 
 define("HTTP", $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST']. $path);
 
+//Gestion PasswordPanel (Get/Post)
 if(isset($_POST['passwordPanel'])) {
 
     if($_POST['passwordPanel'] != $passwordPanel){
@@ -48,7 +49,24 @@ if(!isset($_SESSION['passwordPanel'])) {
         exit;
     }
 }
+//Fin Gestion PasswordPanel (Get/Post)
 
+$response = generateCurl("https://api.myfox.io/v3/site/".$site_id."?access_token=".$access_token, null);
+
+if ((strpos($response,"unauthorized") != false) || !isset($_SESSION["site_id"]) || $_SESSION["site_id"] != "1") {
+    $response = refresh_token($client_id,$client_secret,$refresh_token);
+
+    if ($response == "erreur") {
+        $response = new_token($client_id,$client_secret,$password,$username);
+        header("Location: ".HTTP);
+        exit;
+    }
+}
+//Save string to log, use FILE_APPEND to append.
+if ($log_level == 1) {
+    $log .= "-------------------------".PHP_EOL;
+    file_put_contents('./token.log', $log, FILE_APPEND);
+}
 
 if (isset($log_level) && $log_level == 1) {
     $log = date("F j, Y, g:i a").PHP_EOL;

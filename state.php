@@ -2,6 +2,10 @@
 
 require_once(__DIR__ . '/include.php');
 
+if($site_id == null) {
+    header("Refresh:10");
+}
+
 $url_state = "https://api.myfox.io/v3/site/".$site_id."?access_token=".$access_token;
 $state = json_decode(file_get_contents($url_state));
 $render = false;
