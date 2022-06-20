@@ -15,6 +15,8 @@ require_once('parametres.php');
 define("HTTP", $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST']. $path);
 
 //Gestion PasswordPanel (Get/Post)
+var_dump($_POST);
+var_dump($_GET);
 if(isset($_POST['passwordPanel'])) {
 
     if($_POST['passwordPanel'] != $passwordPanel){
@@ -58,8 +60,14 @@ if ((strpos($response,"unauthorized") != false) || !isset($_SESSION["site_id"]) 
 
     if ($response == "erreur") {
         $response = new_token($client_id,$client_secret,$password,$username);
-        header("Location: ".HTTP);
-        exit;
+        if($_GET['display']){
+            header("Location: ".HTTP . '/state.php?display');
+            exit;
+        }else{
+            header("Location: ".HTTP);
+            exit;
+        }
+
     }
 }
 //Save string to log, use FILE_APPEND to append.
