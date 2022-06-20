@@ -3,7 +3,7 @@
 include(__DIR__ . '/include.php');
 
 if(isset($_GET['passwordPanel'])) {
-    header("Location :" . HTTP);
+    header("Location: " . HTTP);
     exit;
 }
 
