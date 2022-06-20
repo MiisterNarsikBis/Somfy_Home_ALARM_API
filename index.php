@@ -2,6 +2,10 @@
 
 include(__DIR__ . '/include.php');
 
+if(isset($_GET['passwordPanel'])) {
+    header("Location :" . HTTP);
+    exit;
+}
 
 $response = generateCurl("https://api.myfox.io/v3/site/".$site_id."?access_token=".$access_token, null);
 
