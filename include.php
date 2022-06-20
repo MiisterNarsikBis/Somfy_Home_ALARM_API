@@ -15,8 +15,6 @@ require_once('parametres.php');
 define("HTTP", $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST']. $path);
 
 //Gestion PasswordPanel (Get/Post)
-var_dump($_POST);
-var_dump($_GET);
 if(isset($_POST['passwordPanel'])) {
 
     if($_POST['passwordPanel'] != $passwordPanel){
