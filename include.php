@@ -30,7 +30,7 @@ if(isset($_POST['passwordPanel'])) {
 }
 
 //permet de bypass la session passwordPanel et l'injecter via l'url ;)
-if(isset($_GET['passwordPanel'])) {
+if(isset($_GET['passwordPanel']) && $_GET['passwordPanel'] != "") {
     if($passwordPanel != $_GET['passwordPanel']){
         header("Location: ". HTTP ."/password.php?mauvais");
         exit;
@@ -58,15 +58,21 @@ if ((strpos($response,"unauthorized") != false) || !isset($_SESSION["site_id"]) 
 
     if ($response == "erreur") {
         $response = new_token($client_id,$client_secret,$password,$username);
-        if($_GET['display']){
+
+        $file = basename($_SERVER['REQUEST_URI'], '?' . $_SERVER['QUERY_STRING']);
+        
+        if($file == "control.php"){
+            header("Location: ".HTTP . '/control.php?action=' . @$_GET['action'] . '&passwordPanel=' . @$_GET['passwordPanel'] );
+            exit;
+        }elseif($file =="state.php" && isset($_GET['display'])){
             header("Location: ".HTTP . '/state.php?display');
             exit;
         }else{
             header("Location: ".HTTP);
             exit;
         }
-
     }
+
 }
 //Save string to log, use FILE_APPEND to append.
 if ($log_level == 1) {
