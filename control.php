@@ -80,6 +80,4 @@ else{
         curl_close($ch);
 }
 
-header("Location: " . HTTP);
-exit;
 ?>
