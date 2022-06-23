@@ -10,7 +10,7 @@ ini_set('display_startup_errors', 1);
 if(is_dir('vendor/')){
     require_once('vendor/autoload.php');
 }
-require_once('parametres.php');
+include('parametres.php');
 
 define("HTTP", $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST']. $path);
 
@@ -61,25 +61,12 @@ if ((strpos($response,"unauthorized") != false) || !isset($_SESSION["site_id"]) 
 
         $file = basename($_SERVER['REQUEST_URI'], '?' . $_SERVER['QUERY_STRING']);
         
-        header("Refresh:0");
-        exit;
-
-        if($file == "control.php"){
-            header("Location: ".HTTP . '/control.php?action=' . @$_GET['action'] . '&passwordPanel=' . @$_GET['passwordPanel'] );
-            exit;
-        }elseif($file =="cron.php"){
-            header("Location: ".HTTP . '/cron.php');
-            exit;
-        }elseif($file =="state.php" && isset($_GET['display'])){
-            header("Location: ".HTTP . '/state.php?display');
-            exit;
-        }else{
-            header("Location: ".HTTP);
-            exit;
-        }
     }
 
 }
+
+include('parametres.php');
+
 //Save string to log, use FILE_APPEND to append.
 if ($log_level == 1) {
     $log .= "-------------------------".PHP_EOL;
