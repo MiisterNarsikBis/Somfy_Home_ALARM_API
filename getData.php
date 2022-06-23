@@ -144,14 +144,12 @@ if(isset($_GET['action']) && $_GET['action'] == "shutter_state") {
 
     if(isset($_GET['id']) && isset($_GET['type'])) {
         $data = array(
-            "status" => array(
-                "shutter_state" => $_GET['type']
-                )
+                "action" => $_GET['type']
             );
 
         $data_json = json_encode($data);
 
-        $response = generateCurl("https://api.myfox.io/v3/site/".$site_id."/device/". $_GET['id']."?access_token=".$access_token, $data_json, 'PUT');
+        $response = generateCurl("https://api.myfox.io/v3/site/".$site_id."/device/". $_GET['id']."/action?access_token=".$access_token, $data_json, 'POST');
     }
 
 }

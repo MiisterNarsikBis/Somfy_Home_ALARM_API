@@ -254,11 +254,11 @@ if(isset($_GET['passwordPanel'])) {
 
                                                     <?php if($materiel['status']['shutter_state'] == "opened") : ?>
                                                             Cache relevé <i class="fas fa-eye"></i> 
-                                                            <a href="?action=shutter_state&id=<?= $materiel['device_id'] ?>&type=closed"><i class="fas fa-sync"></i></a>
+                                                            <a href="?action=shutter_state&id=<?= $materiel['device_id'] ?>&type=shutter_close"><i class="fas fa-sync"></i></a>
                                                             <br>
                                                         <?php else: ?>
                                                             Cache baissé <i class="fas fa-eye-slash"></i>
-                                                            <a href="?action=shutter_state&id=<?= $materiel['device_id'] ?>&type=opened"><i class="fas fa-sync"></i></a>
+                                                            <a href="?action=shutter_state&id=<?= $materiel['device_id'] ?>&type=shutter_open"><i class="fas fa-sync"></i></a>
                                                             <br>
                                                     <?php endif; ?>
 
