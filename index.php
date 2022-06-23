@@ -236,7 +236,7 @@ if(isset($_GET['passwordPanel'])) {
                                     <div class="card-body">
                                         <div class="row no-gutters align-items-center">
                                             <div class="col mr-2">
-                                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1"><?= $materiel['nom'] ?> (<?= $materiel['type'] ?>)</div>
+                                                <div data-id="<?= $materiel['device_id'] ?>" class="text-xs font-weight-bold text-primary text-uppercase mb-1"><?= $materiel['nom'] ?> (<?= $materiel['type'] ?>)</div>
 
                                                 <?php if($materiel['status']['power_state'] != null) : ?>
 

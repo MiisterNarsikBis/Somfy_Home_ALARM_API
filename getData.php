@@ -13,6 +13,7 @@ function getDataMatos() {
         foreach($details_devices->items as $item) {
 
             $arrayClean[] = [
+                'device_id' => $item->device_id,
                 'nom' => $item->label,
                 'type' => $item->device_definition->label,
                 'typeSomfy' => $item->device_definition->type,
