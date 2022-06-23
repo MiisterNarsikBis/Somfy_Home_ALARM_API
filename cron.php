@@ -15,7 +15,7 @@ if(isset($_GET['action']) && $_GET['action'] == "shutterCamera") {
     
             $data_json = json_encode($data);
     
-            $response = generateCurl("https://api.myfox.io/v3/site/".$site_id."/device/". $_GET['id']."/action?access_token=".$access_token, $data_json, 'POST');
+            $response = generateCurl("https://api.myfox.io/v3/site/".$site_id."/device/". $camera."/action?access_token=".$access_token, $data_json, 'POST');
     
         }
 

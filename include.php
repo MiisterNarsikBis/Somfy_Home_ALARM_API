@@ -61,6 +61,9 @@ if ((strpos($response,"unauthorized") != false) || !isset($_SESSION["site_id"]) 
 
         $file = basename($_SERVER['REQUEST_URI'], '?' . $_SERVER['QUERY_STRING']);
         
+        header("Refresh:0");
+        exit;
+
         if($file == "control.php"){
             header("Location: ".HTTP . '/control.php?action=' . @$_GET['action'] . '&passwordPanel=' . @$_GET['passwordPanel'] );
             exit;
