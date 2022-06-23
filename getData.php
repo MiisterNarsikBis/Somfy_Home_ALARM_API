@@ -150,6 +150,8 @@ if(isset($_GET['action']) && $_GET['action'] == "shutter_state") {
         $data_json = json_encode($data);
 
         $response = generateCurl("https://api.myfox.io/v3/site/".$site_id."/device/". $_GET['id']."/action?access_token=".$access_token, $data_json, 'POST');
+
+        header("Location: ".HTTP);
     }
 
 }
