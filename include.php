@@ -83,6 +83,8 @@ function getTranslateMessageKey($messageKey) {
         case 'homeActivity.user.exit':
             return 'a quitté la maison';
         case 'site.securityLevel.disarmed.user' :
+        case 'site.securityLevel.disarmed.calendar' :
+        case 'site.securityLevel.disarmed.userRemote' :
             return 'a désactivé l\'alarme';
         case 'site.securityLevel.partial.calendar':
         case 'site.securityLevel.partial.user' :

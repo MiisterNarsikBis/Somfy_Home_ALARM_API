@@ -150,6 +150,30 @@ if(isset($_GET['passwordPanel'])) {
                     <a href="state.php?display" target="_blank">Affichage info alarme</a>
                 </div>
 
+                <div class="ml-5">
+                    <?php if(getConfig('shutterCamera') == true) { ?>
+                        <a href="?gestionCron=shutterCamera">Débloquer le cron ?</a>
+                    <?php }else{ ?>
+                        <a href="?gestionCron=shutterCamera">Bloquer le cron ?</a>
+                    <?php } ?>
+                </div>
+
+                <div class="ml-5">
+                    <?php if(getConfig('chauffage') == true) { ?>
+                        <a href="?gestionCron=chauffage">Débloquer le cron chauffage ?</a>
+                    <?php }else{ ?>
+                        <a href="?gestionCron=chauffage">Bloquer le cron chauffage ?</a>
+                    <?php } ?>
+                </div>
+
+                <div class="ml-5">
+                    <a href="weenect.php">Yumi</a>
+                </div>
+
+                <div class="ml-5">
+                    <a href="hue.php"> Hue API </a>
+                </div>
+
             </nav>
             <!-- End of Topbar -->
 
